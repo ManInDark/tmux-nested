@@ -27,6 +27,7 @@ tmux bind -n "$down_keybind" \
 "set-environment \"$NESTED_COUNTER_ENV_NAME\" 1 ; "\
 "set key-table \"$NESTED_INACTIVE_TABLE_NAME\" ; "\
 'set prefix None ; '\
+'set status off ; '\
 "set \"$status_style_option\" \"$inactive_status_style\""
 tmux bind -T "$NESTED_INACTIVE_TABLE_NAME" "$down_keybind" \
 "run-shell 'tmux set-environment \"$NESTED_COUNTER_ENV_NAME\" \$(( \$(tmux show-environment \"$NESTED_COUNTER_ENV_NAME\" | cut -d = -f 2) + 1 ))' ; "\
@@ -38,7 +39,7 @@ tmux bind -n "$up_keybind" \
 tmux bind -T "$NESTED_INACTIVE_TABLE_NAME" "$up_keybind" \
 "run-shell 'tmux set-environment \"$NESTED_COUNTER_ENV_NAME\" \$(( \$(tmux show-environment \"$NESTED_COUNTER_ENV_NAME\" | cut -d = -f 2) - 1 ))' ; "\
 "if-shell '[ \"\$(tmux show-environment \"$NESTED_COUNTER_ENV_NAME\" | cut -d = -f 2)\" -eq 0 ]' "\
-"'set-environment -u \"$NESTED_COUNTER_ENV_NAME\" ; set -u prefix ; set -u key-table ; set -u \"$status_style_option\"' "\
+"'set-environment -u \"$NESTED_COUNTER_ENV_NAME\" ; set -u prefix ; set -u status ; set -u key-table ; set -u \"$status_style_option\"' "\
 "'send-keys \"$up_keybind\"'"
 
 # Up recursive: enable all tmux instances recursively
